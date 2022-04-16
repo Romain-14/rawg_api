@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getList } from "../api/reqToRawg";
 import Wrapper from "../components/Wrapper";
 
 function Home() {
     const [games, setGames] = useState([]);
 
+    
+
     useEffect(() => {
         requestGetList();
     }, []);
 
-    const requestGetList = async () => {
+    // const requestGetList = useCallback ( async() => {
+    //     const response = await getList();
+    //     setGames(prevState => ([...prevState, ...response.results]));
+    // }, [games]);
+    const requestGetList = async() => {
         const response = await getList();
         setGames(prevState => ([...prevState, ...response.results]));
     };
@@ -28,12 +34,13 @@ function Home() {
             });
         }
     };
-
-    return (
-        <>
-            {display()}
-        </>
-    );
+    
+        return (
+            <>
+                {display()}
+            </>
+        );
+    
 }
 
 export default Home;
